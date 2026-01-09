@@ -137,7 +137,8 @@
    VIPER_96_02, // Dodge Viper 1996-2002 wheel pattern
    THIRTY_SIX_MINUS_TWO_WITH_ONE_CAM, // 36-2 with  1 tooth cam - 2jz-gte VVTI crank pulley + non-vvti cam
    GM_40_OSS, // GM 40 tooth wheel no skips for transmission OSS simulation
-
+   DIGIPLEX2_4PLUS1, // Digiplex 2 Tipo / Tempra
+   DIGIPLEX2s_4PLUS1, // Digiplex 2s Thema 16v
    MAX_WHEELS,
  }WheelType;
 
@@ -206,6 +207,8 @@
  const char VIPER9602_friendly_name[] PROGMEM = "Dodge Viper V10 1996-2002";
  const char thirty_six_minus_two_with_second_trigger_friendly_name[] PROGMEM = "36-2 with 1 tooth cam";
  const char GM_40_Tooth_Trans_OSS_friendly_name[] PROGMEM = "GM 40 tooth OSS wheel for Transmissions";
+ const char Digiplex2_friendly_name[] PROGMEM = "Digiplex2 4+1 Crank (Tipo/Tempra)";
+ const char Digiplex2s_friendly_name[] PROGMEM = "Digiplex2s 4+1 Crank (Thema 16v)";
 
  /* Very simple 50% duty cycle */
  const unsigned char dizzy_four_cylinder[] PROGMEM = 
@@ -1543,6 +1546,56 @@
       1,0,1,0,1,0,1,0,1,0, // Teeth 26-30
       1,0,1,0,1,0,1,0,1,0, // Teeth 31-35
       1,0,1,0,1,0,1,0,1,0, // Teeth 36-40
+   };
+
+/* Digiplex 2 (4+1) Crank Wheel - Tipo/Tempra version
+  * Teeth at 0, 90, 180, 270, 275 degrees.
+  * 2.5 degrees per element resolution (144 total elements).
+  * Because this array has 144 elements (instead of the standard 120 elements used for a 60-2 wheel), 
+  * set the RPM scalar to 1.2 (144/120) in your main configuration file where you register this wheel.
+  */
+ const unsigned char Digiplex2_crank[] PROGMEM = 
+   {
+     1,0,0,0,0,0,0,0,0,0,0,0, /* 0-30 deg   (Index 0 is 0 deg) */
+     0,0,0,0,0,0,0,0,0,0,0,0, /* 30-60 deg */
+     0,0,0,0,0,0,0,0,0,0,0,0, /* 60-90 deg */
+
+     1,0,0,0,0,0,0,0,0,0,0,0, /* 90-120 deg (Index 36 is 90 deg) */
+     0,0,0,0,0,0,0,0,0,0,0,0, /* 120-150 deg */
+     0,0,0,0,0,0,0,0,0,0,0,0, /* 150-180 deg */
+
+     1,0,0,0,0,0,0,0,0,0,0,0, /* 180-210 deg (Index 72 is 180 deg) */
+     0,0,0,0,0,0,0,0,0,0,0,0, /* 210-240 deg */
+     0,0,0,0,0,0,0,0,0,0,0,0, /* 240-270 deg */
+
+     1,0,1,0,0,0,0,0,0,0,0,0, /* 270-300 deg (Index 108 is 270 deg, Index 110 is 275 deg) */
+     0,0,0,0,0,0,0,0,0,0,0,0, /* 300-330 deg */
+     0,0,0,0,0,0,0,0,0,0,0,0  /* 330-360 deg */
+   };   
+
+/* Digiplex 2s (4+1) Crank Wheel - Thema 16v version
+  * Teeth at 0, 5, 95, 185, 275 degrees.
+  * 2.5 degrees per element resolution (360 / 2.5 = 144 total elements).
+  * Because this array has 144 elements (instead of the standard 120 elements used for a 60-2 wheel), 
+  * set the RPM scalar to 1.2 (144/120) in your main configuration file where you register this wheel.
+  */
+const unsigned char Digiplex2s_crank[] PROGMEM = 
+   {
+     1,0,0,0,0,0,0,0,0,0,0,0, /* 0-30 deg (Indices 0-11) Teeth at 0 */
+     0,0,0,0,0,0,0,0,0,0,0,0, /* 30-60 deg */
+     0,0,0,0,0,0,0,0,0,0,0,0, /* 60-90 deg */
+
+     1,0,0,0,0,0,0,0,0,0,0,0, /* 90-120 deg (Index 38 is 95 deg) */
+     0,0,0,0,0,0,0,0,0,0,0,0, /* 120-150 deg */
+     0,0,0,0,0,0,0,0,0,0,0,0, /* 150-180 deg */
+
+     1,0,0,0,0,0,0,0,0,0,0,0, /* 180-210 deg (Index 74 is 185 deg) */
+     0,0,0,0,0,0,0,0,0,0,0,0, /* 210-240 deg */
+     0,0,0,0,0,0,0,0,0,0,1,0, /* 240-270 deg (Index 109 is 275 deg) */
+
+     1,0,0,0,0,0,0,0,0,0,0,0, /* 270-300 deg (Index 110 is 275 deg) */
+     0,0,0,0,0,0,0,0,0,0,0,0, /* 300-330 deg */
+     0,0,0,0,0,0,0,0,0,0,0,0  /* 330-360 deg */
    };
 
 #endif
