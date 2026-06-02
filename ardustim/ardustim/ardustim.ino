@@ -58,9 +58,12 @@ uint8_t bitshift = 0;
 
 wheels Wheels[MAX_WHEELS] = {
    /* Pointer to friendly name string, pointer to edge array, RPM Scaler, Number of edges in the array, whether the number of edges covers 360 or 720 degrees */
-  { Digiplex2_friendly_name, Digiplex2_crank, 1.2, 144, 360 },
-  { Digiplex2s_friendly_name, Digiplex2s_crank, 1.2, 144, 360 },
-  { weber_iaw_with_cam_friendly_name, weber_iaw_with_cam, 2.2, 144, 720 },
+  { Digiplex2_friendly_name, Digiplex2_crank, 1.2, sizeof(Digiplex2_crank), 360 },
+  { Digiplex2wide_friendly_name, Digiplex2wide_crank, 1.2, sizeof(Digiplex2wide_crank), 360 },
+  { Digiplex2s_friendly_name, Digiplex2s_crank, 1.2, sizeof(Digiplex2s_crank), 360 },
+  { Digiplex2swide_friendly_name, Digiplex2swide_crank, 1.2, sizeof(Digiplex2swide_crank), 360 },
+  { weber_iaw_with_cam_friendly_name, weber_iaw_with_cam, 0.6, sizeof(weber_iaw_with_cam), 720 },
+  { P911_129p1_friendly_name, P911_129p1_crank, 2.15054, sizeof(P911_129p1_crank), 360 },
   { dizzy_four_cylinder_friendly_name, dizzy_four_cylinder, 0.03333, 4, 360 },
   { dizzy_six_cylinder_friendly_name, dizzy_six_cylinder, 0.05, 6, 360 },
   { dizzy_eight_cylinder_friendly_name, dizzy_eight_cylinder, 0.06667, 8, 360 },

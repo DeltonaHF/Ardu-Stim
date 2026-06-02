@@ -138,7 +138,10 @@
    THIRTY_SIX_MINUS_TWO_WITH_ONE_CAM, // 36-2 with  1 tooth cam - 2jz-gte VVTI crank pulley + non-vvti cam
    GM_40_OSS, // GM 40 tooth wheel no skips for transmission OSS simulation
    DIGIPLEX2_4PLUS1, // Digiplex 2 Tipo / Tempra
+   DIGIPLEX2_4PLUS1WIDE, // Digiplex 2 Tipo / Tempra Wide Teeth
    DIGIPLEX2s_4PLUS1, // Digiplex 2s Thema 16v
+   DIGIPLEX2s_4PLUS1WIDE, // Digiplex 2s Thema 16v Wide Teeth
+   P911_129P1, // Porsche 911 3.2 SC 129 crank + 1 sync
    MAX_WHEELS,
  }WheelType;
 
@@ -175,7 +178,7 @@
  const char chrysler_ngc_thirty_six_plus_two_minus_two_with_ngc4_cam_friendly_name[] PROGMEM = "Chrysler NGC 36+2-2 crank, NGC 4-cyl cam";
  const char chrysler_ngc_thirty_six_minus_two_plus_two_with_ngc6_cam_friendly_name[] PROGMEM = "Chrysler NGC 36-2+2 crank, NGC 6-cyl cam";
  const char chrysler_ngc_thirty_six_minus_two_plus_two_with_ngc8_cam_friendly_name[] PROGMEM = "Chrysler NGC 36-2+2 crank, NGC 8-cyl cam";
- const char weber_iaw_with_cam_friendly_name[] PROGMEM = "Weber-Marelli 8 crank+2 cam pattern";
+ const char weber_iaw_with_cam_friendly_name[] PROGMEM = "Weber-Marelli 8 crank + 2 cam";
  const char fiat_one_point_eight_sixteen_valve_with_cam_friendly_name[] PROGMEM = "Fiat 1.8 16V crank and cam";
  const char three_sixty_nissan_cas_friendly_name[] PROGMEM = "Nissan 360 CAS with 6 slots";
  const char twenty_four_minus_two_with_second_trigger_friendly_name[] PROGMEM = "Mazda CAS 24-2 with single pulse outer ring";
@@ -208,7 +211,10 @@
  const char thirty_six_minus_two_with_second_trigger_friendly_name[] PROGMEM = "36-2 with 1 tooth cam";
  const char GM_40_Tooth_Trans_OSS_friendly_name[] PROGMEM = "GM 40 tooth OSS wheel for Transmissions";
  const char Digiplex2_friendly_name[] PROGMEM = "Digiplex2 4+1 Crank (Tipo/Tempra)";
+ const char Digiplex2wide_friendly_name[] PROGMEM = "Digiplex2 4+1 Crank Wide (Tipo/Tempra)";
  const char Digiplex2s_friendly_name[] PROGMEM = "Digiplex2s 4+1 Crank (Thema 16v)";
+ const char Digiplex2swide_friendly_name[] PROGMEM = "Digiplex2s 4+1 Crank Wide (Thema 16v)";
+ const char P911_129p1_friendly_name[] PROGMEM = "911 3.2 129 + 1 Sync ";
 
  /* Very simple 50% duty cycle */
  const unsigned char dizzy_four_cylinder[] PROGMEM = 
@@ -1554,8 +1560,8 @@
   * Because this array has 144 elements (instead of the standard 120 elements used for a 60-2 wheel), 
   * set the RPM scalar to 1.2 (144/120) in your main configuration file where you register this wheel.
   */
- const unsigned char Digiplex2_crank[] PROGMEM = 
-   {
+  const unsigned char Digiplex2_crank[] PROGMEM = 
+  {
      1,0,0,0,0,0,0,0,0,0,0,0, /* 0-30 deg   (Index 0 is 0 deg) */
      0,0,0,0,0,0,0,0,0,0,0,0, /* 30-60 deg */
      0,0,0,0,0,0,0,0,0,0,0,0, /* 60-90 deg */
@@ -1571,7 +1577,27 @@
      1,0,1,0,0,0,0,0,0,0,0,0, /* 270-300 deg (Index 108 is 270 deg, Index 110 is 275 deg) */
      0,0,0,0,0,0,0,0,0,0,0,0, /* 300-330 deg */
      0,0,0,0,0,0,0,0,0,0,0,0  /* 330-360 deg */
-   };   
+  };   
+
+  //wide tooth variant for higher RPM, pattern comments not updated   
+  const unsigned char Digiplex2wide_crank[] PROGMEM = 
+  {
+     1,1,1,0,0,0,0,0,0,0,0,0, /* 0-30 deg   (Index 0 is 0 deg) */
+     0,0,0,0,0,0,0,0,0,0,0,0, /* 30-60 deg */
+     0,0,0,0,0,0,0,0,0,0,0,0, /* 60-90 deg */
+
+     1,1,1,0,0,0,0,0,0,0,0,0, /* 90-120 deg (Index 36 is 90 deg) */
+     0,0,0,0,0,0,0,0,0,0,0,0, /* 120-150 deg */
+     0,0,0,0,0,0,0,0,0,0,0,0, /* 150-180 deg */
+
+     1,1,1,0,0,0,0,0,0,0,0,0, /* 180-210 deg (Index 72 is 180 deg) */
+     0,0,0,0,0,0,0,0,0,0,0,0, /* 210-240 deg */
+     0,0,0,0,0,0,0,0,0,0,0,0, /* 240-270 deg */
+
+     1,1,1,0,0,1,1,1,0,0,0,0, /* 270-300 deg (Index 108 is 270 deg, Index 110 is 275 deg) */
+     0,0,0,0,0,0,0,0,0,0,0,0, /* 300-330 deg */
+     0,0,0,0,0,0,0,0,0,0,0,0  /* 330-360 deg */
+  };   
 
 /* Digiplex 2s (4+1) Crank Wheel - Thema 16v version
   * Teeth at 0, 5, 95, 185, 275 degrees.
@@ -1579,8 +1605,8 @@
   * Because this array has 144 elements (instead of the standard 120 elements used for a 60-2 wheel), 
   * set the RPM scalar to 1.2 (144/120) in your main configuration file where you register this wheel.
   */
-const unsigned char Digiplex2s_crank[] PROGMEM = 
-   {
+  const unsigned char Digiplex2s_crank[] PROGMEM = 
+  {
      1,0,0,0,0,0,0,0,0,0,0,0, /* 0-30 deg (Indices 0-11) Teeth at 0 */
      0,0,0,0,0,0,0,0,0,0,0,0, /* 30-60 deg */
      0,0,0,0,0,0,0,0,0,0,0,0, /* 60-90 deg */
@@ -1596,6 +1622,47 @@ const unsigned char Digiplex2s_crank[] PROGMEM =
      1,0,0,0,0,0,0,0,0,0,0,0, /* 270-300 deg (Index 110 is 275 deg) */
      0,0,0,0,0,0,0,0,0,0,0,0, /* 300-330 deg */
      0,0,0,0,0,0,0,0,0,0,0,0  /* 330-360 deg */
-   };
+  };
 
+  //wide tooth variant for higher RPM, pattern comments not updated   
+  const unsigned char Digiplex2swide_crank[] PROGMEM = 
+  {
+     1,1,1,0,0,0,0,0,0,0,0,0, /* 0-30 deg (Indices 0-11) Teeth at 0 */
+     0,0,0,0,0,0,0,0,0,0,0,0, /* 30-60 deg */
+     0,0,0,0,0,0,0,0,0,0,0,0, /* 60-90 deg */
+
+     1,1,1,0,0,0,0,0,0,0,0,0, /* 90-120 deg (Index 38 is 95 deg) */
+     0,0,0,0,0,0,0,0,0,0,0,0, /* 120-150 deg */
+     0,0,0,0,0,0,0,0,0,0,0,0, /* 150-180 deg */
+
+     1,1,1,0,0,0,0,0,0,0,0,0, /* 180-210 deg (Index 74 is 185 deg) */
+     0,0,0,0,0,0,0,0,0,0,0,0, /* 210-240 deg */
+     0,0,0,0,0,0,0,1,1,1,0,0, /* 240-270 deg (Index 109 is 275 deg) */
+
+     1,1,1,0,0,0,0,0,0,0,0,0, /* 270-300 deg (Index 110 is 275 deg) */
+     0,0,0,0,0,0,0,0,0,0,0,0, /* 300-330 deg */
+     0,0,0,0,0,0,0,0,0,0,0,0  /* 330-360 deg */
+  };
+
+  //Porsche 911 3.2 129 + 1 Sync   
+  const unsigned char P911_129p1_crank[] PROGMEM = 
+  {
+    0, 1, 0, 1, 0, 1, 2, 1, 0, 1, 0, 1, 0, 1, 0, 1,  // 001 - 008
+    0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,  // 009 - 016
+    0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,  // 017 - 024
+    0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,  // 025 - 032
+    0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,  // 033 - 040
+    0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,  // 041 - 048
+    0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,  // 049 - 056
+    0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,  // 057 - 064
+    0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,  // 065 - 072
+    0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,  // 073 - 080
+    0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,  // 081 - 088
+    0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,  // 089 - 096
+    0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,  // 097 - 104
+    0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,  // 105 - 112
+    0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,  // 113 - 120
+    0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,  // 121 - 128
+    0, 1                                             // 129
+  };
 #endif
