@@ -818,6 +818,7 @@
    0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,3,3,3,2,2,2,2,2,1,1,1,1,1
  };
 
+ #if 0
  const unsigned char weber_iaw_with_cam[] PROGMEM =
    { /*Weber marelli (Cosworth/Lancia) from jimstim
 	   80 deg low, 10 deg high, Tooth 1
@@ -830,6 +831,22 @@
 	   80 deg low, 10 deg high  Crank tooth 8 */
 	 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,2,2,2,2,0,0,0,0,0,0,0,0,1,1, /* Teeth 1 and 2 & cam1 */
 	 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,2,2,2,2,0,0,0,0,0,0,0,0,1,1, /* Teeth 3 and 4 & cam2 */
+	 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1, /* Teeth 5 and 6 */
+	 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1  /* Teeth 7 and 8 */
+   };
+#endif
+ const unsigned char weber_iaw_with_cam[] PROGMEM =
+   { /*Weber marelli (Cosworth/Lancia) from DeltonaDev
+	   80 deg low, 10 deg high, Tooth 1
+	   20 deg low, 45 deg cam pulse, 15 deg low, 10 deg high, Cam tooth 1 and crank tooth 2
+	   80 deg low, 10 deg high, Crank tooth 3
+	   20 deg low, 45 deg cam pulse, 15 deg low, 10 deg high, Cam tooth2 and crank tooth 4
+	   80 deg low, 10 deg high, Crank tooth 5
+	   80 deg low, 10 deg high  Crank tooth 6
+	   80 deg low, 10 deg high, Crank tooth 7
+	   80 deg low, 10 deg high  Crank tooth 8 */
+	 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,2,2,2,0,0,0,0,0,0,1,1, /* Teeth 1 and 2 & cam1 */
+	 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,2,2,2,0,0,0,0,0,0,1,1, /* Teeth 3 and 4 & cam2 */
 	 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1, /* Teeth 5 and 6 */
 	 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1  /* Teeth 7 and 8 */
    };

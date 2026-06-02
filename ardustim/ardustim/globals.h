@@ -62,6 +62,7 @@ struct status
   uint16_t base_rpm; //RPM excluding compression modifier
   uint16_t compressionModifier;
   uint16_t rpm; //Final RPM
+  uint8_t engine_stopped; //if true, no outputs will change
 };
 extern struct status currentStatus;
 

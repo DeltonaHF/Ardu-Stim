@@ -264,6 +264,8 @@ ISR(ADC_vect){
  */
 ISR(TIMER1_COMPA_vect) 
 {
+  if (currentStatus.engine_stopped) { return; }
+  
   /* This is VERY simple, just walk the array and wrap when we hit the limit */
   PORTB = output_invert_mask ^ pgm_read_byte(&Wheels[config.wheel].edge_states_ptr[edge_counter]);   /* Write it to the port */
   
@@ -307,18 +309,28 @@ void loop()
   else if (config.mode == LINEAR_SWEPT_RPM)
   {
     
-    if(micros() > (sweep_time_counter + config.sweep_interval))
+    if(micros() > (sweep_time_counter + config.sweep_interval*10))
     {
       sweep_time_counter = micros();
       if(sweep_direction == ASCENDING)
       {
-        tmp_rpm = currentStatus.base_rpm + 1;
-        if(tmp_rpm >= config.sweep_high_rpm) { sweep_direction = DESCENDING; }
+        if(tmp_rpm >= config.sweep_high_rpm) { 
+          sweep_direction = DESCENDING; 
+        }
+        else
+        {
+          tmp_rpm = currentStatus.base_rpm + 1;
+        }
       }
       else
       {
-        tmp_rpm = currentStatus.base_rpm - 1;
-        if(tmp_rpm <= config.sweep_low_rpm) { sweep_direction = ASCENDING; }
+        if(tmp_rpm <= config.sweep_low_rpm) { 
+          sweep_direction = ASCENDING; 
+        }
+        else
+        {
+          tmp_rpm = currentStatus.base_rpm - 1;
+        }
       }
     }
     
@@ -398,7 +410,12 @@ uint16_t calculateCurrentCrankAngle()
  */ 
 void setRPM(uint16_t newRPM)
 {
-  if (newRPM < 10)  { return; }
+  if (newRPM < 10)  { 
+    newRPM = 10;
+    currentStatus.engine_stopped = 1;
+    return; 
+  }
+  currentStatus.engine_stopped = 0;
 
   if(currentStatus.rpm != newRPM) { reset_new_OCR1A( newRPM ); }
   currentStatus.rpm = newRPM;
